@@ -1,5 +1,7 @@
 # Statistics-API
 
+BIG IDEA: i should change this all to Rust. it's for the learning. and cause it takes FOREVER to do a 20 x 20 map
+
 last stats project was mid cause didn't know how to do anything and ai-ed a bunch of it
 
 this one will try to improve it except without stupid frontend stuff
