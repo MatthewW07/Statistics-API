@@ -63,6 +63,19 @@ also need to figure out how to classify numerical vs categorical vs ordinal data
 tbh i can prob start by just keeping numbers as numbers, but i should add ordinal stuff later
 like maybe there'll be an option to treat a numerical variable as ordinal
 actually that's an interface thing; all i need to do here is use default parameters that can be changed
+also what is there for data types?
+
+- Numerical:
+    1. discrete
+    2. continuous
+    3. categorical
+- Categorical:
+    1. Multiple
+        1. Ordinal
+        2. Non-ordinal
+    2. Binary 
+        1. Ordinal
+        2. Non-ordinal
 
 
 ### Num vs Num:
@@ -82,7 +95,8 @@ actually that's an interface thing; all i need to do here is use default paramet
 
 
 ### Num vs Cat:
-1. Point-Biserial Correlation Coefficient
+1. Eta Coefficient
+2. Point-Biserial Correlation Coefficient
 
 
 ### Cat  vs Ord:
