@@ -1,0 +1,123 @@
+import pandas as pd
+import numpy as np
+
+"""Important Functions to Compare Data"""
+
+# industry standard
+def num_v_num(df, x, y, method="pearson"):
+    pass
+
+# order matters
+def num_v_cat(df, x, y, method="eta"):
+    pass
+
+# yeah!
+def cat_v_cat(df, x, y, method="cramer"):
+    pass
+
+
+"""Important Function to Classify Data"""
+
+def classify(x):
+    pass
+
+
+"""Util Functions to Compare Data"""
+
+# Number 1.
+def _comp_pearson(x, y) -> float:
+    x_mean = x.mean()
+    y_mean = y.mean()
+
+    numerator = ((x - x_mean) * (y - y_mean)).sum()
+    denominator = np.sqrt(((x - x_mean) ** 2).sum() * ((y - y_mean) ** 2).sum())
+
+    r = numerator / denominator
+    return r
+
+# Number 2.
+def _comp_spearman(x, y) -> float:
+    x_rank = x.rank()
+    y_rank = y.rank()
+    n = len(x)
+
+    numerator = 6 * ((x_rank - y_rank) ** 2).sum()
+    denominator = n * (n ** 2 - 1)
+
+    rho = 1.0 - (numerator / denominator)
+    return rho
+
+# Number 3.
+def _comp_distance(x, y) -> float:
+    pass
+
+# Number 4.
+def _comp_kendall(x, y) -> float:
+    pass
+
+# Number 5.
+def _comp_determination(x, y) -> float:
+    r = _comp_pearson(x, y)
+    r2 = r * r
+    return r2
+# Number 6.
+def _comp_biserial(x, y) -> float:
+    pass
+
+# Number 7.
+def _comp_point_biserial(x, y) -> float:
+    pass
+
+# Number 8.
+# x: num, y: cat
+def _comp_eta(x, y) -> float:
+    x_mean = x.mean()
+    grouped = x.groupby(y)
+    grouped_mean = grouped.mean()
+    grouped_size = grouped.size()
+
+    ss_between = (grouped_size * (grouped_mean - x_mean) ** 2).sum()
+    ss_total = ((x - x_mean) ** 2).sum()
+
+    return np.sqrt(ss_between / ss_total)
+    
+# Number 9.
+def _comp_nash_sutcliffe(x, y) -> float:
+    pass
+
+# Number 10.
+def _comp_cramer(x, y, unbiased=True) -> float:
+    x_codes, _ = pd.factorize(x)
+    y_codes, _ = pd.factorize(y)
+    r = x_codes.max() + 1
+    k = y_codes.max() + 1
+
+    table = np.zeros((r, k), dtype=np.int64)
+    np.add.at(table, (x_codes, y_codes), 1)
+    n = table.sum()
+
+    row_sums = table.sum(axis=1, keepdims=True)
+    col_sums = table.sum(axis=0, keepdims=True)
+    expected = (row_sums @ col_sums) / n
+
+    chi2 = np.nansum(((table - expected) ** 2) / expected)
+    phi2 = chi2 / n
+
+    phi2corr = max(0.0, phi2 - ((k - 1) * (r - 1)) / (n - 1))
+    rcorr = r - ((r-1) ** 2) / (n - 1)
+    kcorr = k - ((k-1) ** 2) / (n - 1)
+
+    denominator = min(kcorr - 1, rcorr - 1)
+    return 0.0 if denominator <= 0 else np.sqrt(phi2corr / denominator)
+
+# Number 11.
+def _comp_goodman_krushal(x, y) -> float:
+    pass
+
+# thats it!
+
+if __name__ == "__main__":
+    df = pd.read_csv("Student_Productivity_Dataset.csv")
+    var_x = "Sleep_Hours_Per_Night"
+    var_y = "Study_Hours_Per_Day"
+    print(_comp_spearman(df[var_x], df[var_y]))
