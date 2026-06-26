@@ -45,6 +45,8 @@ class Cell:
     
 
     def create_comps(self):
+        if self.type == "num_v_num":
+            pass
         pass
 
     def create_graphs(self):
