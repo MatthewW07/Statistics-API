@@ -54,3 +54,40 @@ k so basically need make it good with classes and stuff
     1. comparison functions(x, y): returns dictionary of comparison -> value
     2. make graph(x, y, type=None): returns graph of specified type (or of default type)
     3. determine variables(x, y): take two variables and return what type it is (cat vs. cat, num vs cat, etc.)
+
+
+
+## Comparison Data
+need to research these to see what exactly they compare
+also need to figure out how to classify numerical vs categorical vs ordinal data
+tbh i can prob start by just keeping numbers as numbers, but i should add ordinal stuff later
+like maybe there'll be an option to treat a numerical variable as ordinal
+actually that's an interface thing; all i need to do here is use default parameters that can be changed
+
+
+### Num vs Num:
+1. Pearson's Correlation Coefficient (r)
+2. Spearman's Rank-Order Coefficient (rho)
+3. Distance Correlation
+4. Kendall's Rank Correlation (tau?)
+5. Coefficient of Detemrination (R^2)
+6. Biserial / Point-Biserial Correlation
+7. Nash-Sutcliffe Efficiency (NSE)
+
+
+### Cat vs Cat:
+1. Cramer's V
+2. Goodman-Krushal's Lambda
+
+
+### Num vs Cat:
+1. Point-Biserial Correlation Coefficient
+
+
+### Cat  vs Ord:
+1. Rank-Biserial Correlation Coefficient
+
+
+### Ord vs Ord and Ord vs Num
+1. Spearman Rank Correlation
+2. Kendall Rank Correlation Coefficient
