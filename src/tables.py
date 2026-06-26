@@ -1,6 +1,6 @@
 import pandas
 import numpy
-from correlations import *
+from stats import *
 
 class Numerical_Table:
     def __init__(self):

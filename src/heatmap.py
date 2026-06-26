@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from correlations import *
+from stats import *
 from cell import Cell
 from typing import Tuple
 from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_type, is_object_type)
@@ -42,28 +42,6 @@ class Heatmap:
                 self.matrix[i][j] = Cell(self.df, x, y)
                 self.matrix[j][i] = Cell(self.df, x, y)
 
-                # value = 0.0
-
-                # if var_i == var_j:
-                #     value = 1.0
-
-                # elif type_i == "num" and type_j == "num":
-                #     value = num_v_num(x, y)
-
-                # elif type_i == "num" and type_j == "cat":
-                #     value = num_v_cat(x, y)
-
-                # elif type_i == "cat" and type_j == "num":
-                #     value = num_v_cat(y, x)
-
-                # elif type_i == "cat" and type_j == "cat":
-                #     value = cat_v_cat(x, y)
-
-                # else:
-                #     value = np.nan
-                
-                # self.matrix[i][j] = value
-                # self.matrix[j][i] = value
 
         return self.matrix
         # makes a bunch of Cell objects
