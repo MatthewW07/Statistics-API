@@ -5,7 +5,6 @@ from pandas.api.types import (
     is_numeric_dtype, is_bool_dtype, is_categorical_dtype, is_object_dtype, is_string_dtype
 )
 
-
 _IDENTIFIER_TOKENS = ("id", "uuid", "guid", "key", "code", "identifier")
 
 def safe_float(v):

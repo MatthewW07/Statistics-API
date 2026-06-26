@@ -77,7 +77,8 @@ actually that's an interface thing; all i need to do here is use default paramet
 
 ### Cat vs Cat:
 1. Cramer's V
-2. Goodman-Krushal's Lambda
+2. Cramer's Unbiased V
+3. Goodman-Krushal's Lambda
 
 
 ### Num vs Cat:
