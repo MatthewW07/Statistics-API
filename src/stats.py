@@ -92,7 +92,9 @@ def _comp_distance(x, y) -> float:
 
 # Number 4.
 def _comp_kendall(x, y) -> float:
-    pass
+    # shhhhhhhh
+    tau = x.corr(y, method="kendall")
+    return tau
 
 # Number 5.
 def _comp_determination(x, y) -> float:
