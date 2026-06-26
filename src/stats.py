@@ -103,10 +103,12 @@ def _comp_determination(x, y) -> float:
     return r2
 
 # Number 6.
+# x: num, y: bin
 def _comp_biserial(x, y) -> float:
     pass
 
 # Number 7.
+# x: num, y: bin
 def _comp_point_biserial(x, y) -> float:
     pass
 
