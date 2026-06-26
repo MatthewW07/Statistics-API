@@ -29,7 +29,7 @@ def num_v_cat(x, y) -> dict:
 def cat_v_cat(x, y) -> dict:
     res = {}
     res["cramer"]          = _comp_cramer(x, y)
-    res["cramer-unbiased"] = _comp_cramer_unbiased(x, y)
+    res["cramer-unbiased"] = _comp_cramer_unbiased(x, y, unbiased=True)
     res["goodman-krushal"] = _comp_goodman_krushal(x, y)
     return res
 
@@ -130,7 +130,7 @@ def _comp_nash_sutcliffe(x, y) -> float:
     pass
 
 # Number 10.
-def _comp_cramer(x, y) -> float:
+def _comp_cramer(x, y, unbiased=False) -> float:
     x_codes, _ = pd.factorize(x)
     y_codes, _ = pd.factorize(y)
     r = x_codes.max() + 1
@@ -145,14 +145,15 @@ def _comp_cramer(x, y) -> float:
     expected = (row_sums @ col_sums) / n
 
     chi2 = np.nansum(((table - expected) ** 2) / expected)
-    phi2 = chi2 / n
+    phi2 = chi2 / n 
 
-    phi2corr = max(0.0, phi2 - ((k - 1) * (r - 1)) / (n - 1))
-    rcorr = r - ((r-1) ** 2) / (n - 1)
-    kcorr = k - ((k-1) ** 2) / (n - 1)
+    if unbiased == True:
+        phi2 = max(0.0, phi2 - ((k - 1) * (r - 1)) / (n - 1))
+        k = k - ((k - 1) ** 2) / (n - 1)
+        r = r - ((r - 1) ** 2) / (n - 1)
 
-    denominator = min(kcorr - 1, rcorr - 1)
-    return 0.0 if denominator <= 0 else np.sqrt(phi2corr / denominator)
+    denominator = min(k - 1, r - 1)
+    return 0.0 if denominator <= 0 else np.sqrt(phi2 / denominator)
 
 # Number 11.
 def _comp_cramer_unbiased(x, y) -> float:
