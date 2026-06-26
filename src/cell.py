@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from stats import *
-from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_type, is_object_type)
+from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_dtype, is_object_dtype)
 
 class Cell:
     def __init__(self, x, y, default=None):
@@ -12,12 +12,15 @@ class Cell:
         self.type = None
         self.graphs = []
 
+        self.classify_data()
+        self.create_comps()
+
     def classify_variable(self, s) -> str:
         # implement heuristic stuff later cause is not good rn
         res = None
         if is_numeric_dtype(s):
             res = "num"
-        elif is_categorical_dtype(s) or is_object_type(s) or is_bool_dtype(s) or is_string_type(s):
+        elif is_categorical_dtype(s) or is_object_dtype(s) or is_bool_dtype(s) or is_string_dtype(s):
             res = "cat"
         return res
     
@@ -46,8 +49,14 @@ class Cell:
 
     def create_comps(self):
         if self.type == "num_v_num":
-            pass
-        pass
+            self.comps = num_v_num(self.x, self.y)
+        elif self.type == "num_v_cat":
+            self.comps = num_v_cat(self.x, self.y)
+        elif self.type == "cat_v_num":
+            self.comps = num_v_cat(self.y, self.x)
+        elif self.type == "cat_v_cat":
+            self.comps = cat_v_cat(self.x, self.y)
+        return self.comps
 
     def create_graphs(self):
         pass

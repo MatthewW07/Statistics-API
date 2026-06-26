@@ -92,9 +92,7 @@ def _comp_distance(x, y) -> float:
 
 # Number 4.
 def _comp_kendall(x, y) -> float:
-    # shhhhhhhh
-    tau = x.corr(y, method="kendall")
-    return tau
+    return 0.0
 
 # Number 5.
 def _comp_determination(x, y) -> float:
@@ -105,12 +103,12 @@ def _comp_determination(x, y) -> float:
 # Number 6.
 # x: num, y: bin
 def _comp_biserial(x, y) -> float:
-    pass
+    return 0.0
 
 # Number 7.
 # x: num, y: bin
 def _comp_point_biserial(x, y) -> float:
-    pass
+    return 0.0
 
 # Number 8.
 # x: num, y: cat
@@ -127,7 +125,7 @@ def _comp_eta(x, y) -> float:
     
 # Number 9.
 def _comp_nash_sutcliffe(x, y) -> float:
-    pass
+    return 0.0
 
 # Number 10.
 def _comp_cramer(x, y, unbiased=False) -> float:
@@ -157,11 +155,11 @@ def _comp_cramer(x, y, unbiased=False) -> float:
 
 # Number 11.
 def _comp_cramer_unbiased(x, y) -> float:
-    pass
+    return 0.0
 
 # Number 12.
 def _comp_goodman_krushal(x, y) -> float:
-    pass
+    return 0.0
 
 # thats it!
 
