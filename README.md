@@ -95,13 +95,23 @@ also what is there for data types?
 
 ### Num vs Cat:
 1. Eta Coefficient
-2. Biserial / Point-Biserial Correlation Coefficient
 
 
-### Bin vs Ord:
-1. Rank-Biserial Correlation Coefficient
+### Num vs Bin:
+1. Biserial / Point-Biserial Correlation Coefficient
 
 
-### Ord vs Ord and Ord vs Num
-1. Spearman Rank Correlation
-2. Kendall Rank Correlation Coefficient
+
+### stuff to look into:
+
+Nominal apparently:
+- The Percent Maximum Difference[8]
+- The phi coefficient
+- Tschuprow's T
+- The uncertainty coefficient
+- The Lambda coefficient
+- The Rand index
+- Davies–Bouldin index
+- Dunn index
+- Jaccard index
+- Fowlkes–Mallows index

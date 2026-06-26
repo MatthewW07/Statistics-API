@@ -24,7 +24,7 @@ class Heatmap:
             res = "cat"
         return res
 
-    def classify_columns(self) -> dict:
+    def classify_all_columns(self) -> dict:
         # maps all column to type ("num" or "cat" so far)
         res = {}
         for var, s in self.df.items():
