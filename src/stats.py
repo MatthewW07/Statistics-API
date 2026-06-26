@@ -67,7 +67,28 @@ def _comp_spearman(x, y) -> float:
 
 # Number 3.
 def _comp_distance(x, y) -> float:
-    pass
+    x = np.array(x).reshape(-1, 1)
+    y = np.array(y).reshape(-1, 1)
+    n = len(x)
+
+    A = np.abs(x - x.T)
+    B = np.abs(y - y.T)
+
+    A_mean = np.mean(A, axis=0)
+    B_mean = np.mean(B, axis=0)
+
+    A_grand_mean = np.mean(A)
+    B_grand_mean = np.mean(B)
+
+    A_centered = A - A_mean[:, np.newaxis] - A_mean[np.newaxis, :] + A_grand_mean
+    B_centered = B - B_mean[:, np.newaxis] - B_mean[np.newaxis, :] + B_grand_mean
+
+    dcov2  = (A_centered * B_centered).sum() / (n ** 2)
+    dvarx2 = (A_centered * A_centered).sum() / (n ** 2)
+    dvary2 = (B_centered * B_centered).sum() / (n ** 2)
+
+    dcor = np.sqrt(dcov2) / np.sqrt(np.sqrt(dvarx2) * np.sqrt(dvary2))
+    return dcor
 
 # Number 4.
 def _comp_kendall(x, y) -> float:
