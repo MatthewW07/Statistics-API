@@ -4,16 +4,34 @@ import numpy as np
 """Important Functions to Compare Data"""
 
 # industry standard
-def num_v_num(df, x, y, method="pearson"):
-    pass
+# methods: pearson, spearman, distance, kendall, determination, nash-stucliffe
+def num_v_num(x, y) -> dict:
+    res = {}
+    res["pearson"]   = _comp_pearson(x, y)
+    res["spearman"]  = _comp_spearman(x, y)
+    res["distance"]  = _comp_distance(x, y)
+    res["kendall"]   = _comp_kendall(x, y)
+    res["determine"] = _comp_determination(x, y)
+    res["nashsut"]   = _comp_nash_sutcliffe(x, y)
+    return res
 
 # order matters
-def num_v_cat(df, x, y, method="eta"):
-    pass
+# methods: eta, biseral, point-biseral
+def num_v_cat(x, y) -> dict:
+    res = {}
+    res["eta"]           = _comp_eta(x, y)
+    res["biserial"]      = _comp_biserial(x, y)
+    res["point-biseral"] = _comp_point_biserial(x, y)
+    return res
 
 # yeah!
-def cat_v_cat(df, x, y, method="cramer"):
-    pass
+# methods: cramers, cramers-unbiased, goodman-krushal
+def cat_v_cat(x, y) -> dict:
+    res = {}
+    res["cramer"]          = _comp_cramer(x, y)
+    res["cramer-unbiased"] = _comp_cramer_unbiased(x, y)
+    res["goodman-krushal"] = _comp_goodman_krushal(x, y)
+    return res
 
 
 """Important Function to Classify Data"""
@@ -87,7 +105,7 @@ def _comp_nash_sutcliffe(x, y) -> float:
     pass
 
 # Number 10.
-def _comp_cramer(x, y, unbiased=True) -> float:
+def _comp_cramer(x, y) -> float:
     x_codes, _ = pd.factorize(x)
     y_codes, _ = pd.factorize(y)
     r = x_codes.max() + 1
@@ -112,6 +130,10 @@ def _comp_cramer(x, y, unbiased=True) -> float:
     return 0.0 if denominator <= 0 else np.sqrt(phi2corr / denominator)
 
 # Number 11.
+def _comp_cramer_unbiased(x, y) -> float:
+    pass
+
+# Number 12.
 def _comp_goodman_krushal(x, y) -> float:
     pass
 
