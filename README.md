@@ -84,8 +84,7 @@ also what is there for data types?
 3. Distance Correlation
 4. Kendall's Rank Correlation (tau?)
 5. Coefficient of Detemrination (R^2)
-6. Biserial / Point-Biserial Correlation
-7. Nash-Sutcliffe Efficiency (NSE)
+6. Nash-Sutcliffe Efficiency (NSE)
 
 
 ### Cat vs Cat:
@@ -96,10 +95,10 @@ also what is there for data types?
 
 ### Num vs Cat:
 1. Eta Coefficient
-2. Point-Biserial Correlation Coefficient
+2. Biserial / Point-Biserial Correlation Coefficient
 
 
-### Cat  vs Ord:
+### Bin vs Ord:
 1. Rank-Biserial Correlation Coefficient
 
 
