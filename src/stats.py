@@ -29,7 +29,7 @@ def num_v_cat(x, y) -> dict:
 def cat_v_cat(x, y) -> dict:
     res = {}
     res["cramer"]          = _comp_cramer(x, y)
-    res["cramer-unbiased"] = _comp_cramer_unbiased(x, y, unbiased=True)
+    res["cramer-unbiased"] = _comp_cramer(x, y, unbiased=True)
     res["goodman-krushal"] = _comp_goodman_krushal(x, y)
     return res
 
@@ -152,10 +152,6 @@ def _comp_cramer(x, y, unbiased=False) -> float:
 
     denominator = min(k - 1, r - 1)
     return 0.0 if denominator <= 0 else np.sqrt(phi2 / denominator)
-
-# Number 11.
-def _comp_cramer_unbiased(x, y) -> float:
-    return 0.0
 
 # Number 12.
 def _comp_goodman_krushal(x, y) -> float:
