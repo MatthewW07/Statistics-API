@@ -18,6 +18,13 @@ class Heatmap:
         self.corr_matrix = [[0.0 for _ in range(self.n)] for _ in range(self.n)]
         self.columns = self.df.columns
         self.types = {}
+        self.caches = {}
+
+    def create_caches(self):
+        for i in range(self.n):
+            x = self.df[self.columns[i]]
+            name = x.name
+            self.caches[name] = ColumnCache(x)
 
     def classify_column(self, s) -> str:
         # implement heuristic stuff later cause is not good rn
