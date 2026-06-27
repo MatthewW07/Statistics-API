@@ -3,7 +3,7 @@ import numpy as np
 from stats import *
 from cell import Cell
 from typing import Tuple
-import pprint
+from caching import ColumnCache
 from pandas.api.types import (
     is_numeric_dtype, is_bool_dtype, is_categorical_dtype, is_object_dtype, is_string_dtype
 )
@@ -39,18 +39,22 @@ class Heatmap:
     def create_full_matrix(self) -> np.ndarray[Tuple[int, int], np.dtype[np.float64]]:
         # idk how make this better, but oh well it's not like they have 10^5 columns
         for i in range(self.n):
+            print(f"On {i} of {self.n} for full matrix")
             for j in range(i, self.n):
                 x = self.df[self.columns[i]]
                 y = self.df[self.columns[j]]
 
-                self.full_matrix[i][j] = Cell(x, y)
-                self.full_matrix[j][i] = Cell(x, y)
+                cell = Cell(x, y)
+                self.full_matrixp[i][j] = cell
+                cell.flip_cell()
+                self.full_matrix[j][i] = cell
 
         return self.full_matrix
         # makes a bunch of Cell objects
 
     def create_corr_matrix(self, num_v_num="pearson", num_v_cat="eta", cat_v_cat="cramer"):
         for i in range(self.n):
+            print(f"On {i} of {self.n} for corr matrix")
             for j in range(i, self.n):
                 x = self.df[self.columns[i]]
                 y = self.df[self.columns[j]]
