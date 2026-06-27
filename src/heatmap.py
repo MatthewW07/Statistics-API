@@ -52,7 +52,7 @@ class Heatmap:
                 y = self.df[self.columns[j]]
 
                 cell = Cell(x, y)
-                self.full_matrixp[i][j] = cell
+                self.full_matrix[i][j] = cell
                 cell.flip_cell()
                 self.full_matrix[j][i] = cell
 
@@ -80,6 +80,7 @@ class Heatmap:
 
 if __name__ == "__main__":
     heatmap = Heatmap("Student_Productivity_Dataset.csv")
+    heatmap.create_caches()
     heatmap.create_full_matrix()
     # print(len(heatmap.full_matrix), len(heatmap.full_matrix[0]))
     heatmap.create_corr_matrix()

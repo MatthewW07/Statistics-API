@@ -91,13 +91,16 @@ def _comp_distance(x, y, cache=None) -> float:
     if cache is None:
         cache = {}
 
+    x_name = x.name
+    y_name = y.name
+
     x = np.array(x).reshape(-1, 1)
     y = np.array(y).reshape(-1, 1)
     n = len(x)
 
-    if x.name in cache:
-        A_centered = cache[x.name].centered
-        dvarx2 = cache[x.name].dvar2
+    if x_name in cache:
+        A_centered = cache[x_name].centered
+        dvarx2 = cache[x_name].dvar2
     else:
         A = np.abs(x - x.T)
         A_mean = np.mean(A, axis=0)
@@ -105,9 +108,9 @@ def _comp_distance(x, y, cache=None) -> float:
         A_centered = A - A_mean[:, np.newaxis] - A_mean[np.newaxis, :] + A_grand_mean
         dvarx2 = (A_centered * A_centered).sum() / (n ** 2)
 
-    if y.name in cache:
-        B_centered = cache[x.name].centered
-        dvary2 = cache[x.name].dvar2
+    if y_name in cache:
+        B_centered = cache[y_name].centered
+        dvary2 = cache[y_name].dvar2
     else:
         B = np.abs(y - y.T)
         B_mean = np.mean(B, axis=0)
