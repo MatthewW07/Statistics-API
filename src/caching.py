@@ -21,7 +21,7 @@ class ColumnCache:
             self.centered = A - A_mean[:, np.newaxis] - A_mean[np.newaxis, :] + A_grand_mean
             self.dvar2 = (self.centered * self.centered).sum() / (self.n ** 2)
 
-        if x.dtype == "object" or x.dtype == "category":
+        if x.dtype == "object" or x.dtype == "category" or x.dtype == "bool" or x.dtype == "string":
             self.codes = pd.factorize(x)[0]
             self.unique_codes = np.unique(self.codes)
             
