@@ -10,18 +10,18 @@ def num_v_num(x, y, cache=None) -> dict:
         cache = {}
 
     res = {}
-    res["pearson"]   = _comp_pearson(x, y, cache={})
     print("pearson")
-    res["spearman"]  = _comp_spearman(x, y, cache={})
+    res["pearson"]   = _comp_pearson(x, y, cache=cache)
     print("spearman")
-    res["distance"]  = _comp_distance(x, y, cache={})
+    res["spearman"]  = _comp_spearman(x, y, cache=cache)
     print("distance")
-    res["kendall"]   = _comp_kendall(x, y, cache={})
+    res["distance"]  = _comp_distance(x, y, cache=cache)
     print("kendall")
-    res["determine"] = _comp_determination(x, y, cache={}, r=res["pearson"])
+    res["kendall"]   = _comp_kendall(x, y, cache=cache)
     print("determine")
-    res["nashsut"]   = _comp_nash_sutcliffe(x, y, cache={})
+    res["determine"] = _comp_determination(x, y, cache=cache, r=res["pearson"])
     print("nashsut")
+    res["nashsut"]   = _comp_nash_sutcliffe(x, y, cache=cache)
     return res
 
 # order matters
@@ -31,12 +31,12 @@ def num_v_cat(x, y, cache=None) -> dict:
         cache = {}
 
     res = {}
-    res["eta"]           = _comp_eta(x, y, cache={})
     print("eta")
-    res["biserial"]      = _comp_biserial(x, y, cache={})
+    res["eta"]           = _comp_eta(x, y, cache=cache)
     print("biserial")
-    res["point-biseral"] = _comp_point_biserial(x, y, cache={})
+    res["biserial"]      = _comp_biserial(x, y, cache=cache)
     print("point-biseral")
+    res["point-biseral"] = _comp_point_biserial(x, y, cache=cache)
     return res
 
 # yeah!
@@ -46,12 +46,12 @@ def cat_v_cat(x, y, cache=None) -> dict:
         cache = {}
 
     res = {}
-    res["cramer"]          = _comp_cramer(x, y, cache={})
     print("cramer")
-    res["cramer-unbiased"] = _comp_cramer(x, y, unbiased=True, cache={})
+    res["cramer"]          = _comp_cramer(x, y, cache=cache)
     print("cramer-unbiased")
-    res["goodman-krushal"] = _comp_goodman_krushal(x, y, cache={})
+    res["cramer-unbiased"] = _comp_cramer(x, y, unbiased=True, cache=cache)
     print("goodman-krushal")
+    res["goodman-krushal"] = _comp_goodman_krushal(x, y, cache=cache)
     return res
 
 
@@ -119,7 +119,6 @@ def _comp_distance(x, y, cache=None) -> float:
         dvary2 = (B_centered * B_centered).sum() / (n ** 2)
 
     dcov2  = (A_centered * B_centered).sum() / (n ** 2)
-
     dcor = np.sqrt(dcov2) / np.sqrt(np.sqrt(dvarx2) * np.sqrt(dvary2))
     return dcor
 
