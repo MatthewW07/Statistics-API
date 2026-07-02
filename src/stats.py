@@ -127,7 +127,7 @@ def _comp_kendall(x, y, cache=None) -> float:
     if cache is None:
         cache = {}
 
-    return 0.0
+    return x.corr(y, method="kendall")
 
 # Number 5.
 def _comp_determination(x, y, cache=None, r=None) -> float:
