@@ -63,8 +63,6 @@ class Heatmap:
         for i in range(self.n):
             print(f"On {i} of {self.n} for corr matrix")
             for j in range(i, self.n):
-                x = self.df[self.columns[i]]
-                y = self.df[self.columns[j]]
                 cell = self.full_matrix[i][j]
                 comp_type = cell.type
 
@@ -82,10 +80,12 @@ if __name__ == "__main__":
     heatmap = Heatmap("Student_Productivity_Dataset.csv")
     print("Creating caches...")
     heatmap.create_caches()
+
     print("Creating full matrix...")
     heatmap.create_full_matrix()
-    # print(len(heatmap.full_matrix), len(heatmap.full_matrix[0]))
+
     print("Creating correlation matrix...")
     heatmap.create_corr_matrix()
+
     print(heatmap.corr_matrix)
     
