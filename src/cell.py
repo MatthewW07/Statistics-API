@@ -7,12 +7,10 @@ class Cell:
     def __init__(self, x, y, default=None, cache={}):
         self.x = x
         self.y = y
-        self.stats = {}
         self.comps = {}
         self.default = default
         self.type = None
         self.cache = cache
-        self.graphs = []
 
         self.classify_data()
         self.create_comps()
@@ -59,15 +57,5 @@ class Cell:
             self.comps = cat_v_cat(self.x, self.y, cache=self.cache)
         return self.comps
 
-    def create_graphs(self):
-        pass
-
     def flip_cell(self):
-        temp = self.x
-        self.x = self.y
-        self.y = temp
-
-        if self.type == "num_v_cat":
-            self.type = "cat_v_num"
-        elif self.type == "cat_v_num":
-            self.type = "num_v_cat"
+        return Cell(x=self.y, y=self.x, default=self.default, cache=self.cache)

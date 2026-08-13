@@ -2,7 +2,7 @@
 from heatmap import Heatmap
 from num_table import Numerical_Table
 from cat_table import Categorical_Table
-import pprint
+from objprint import op
 
 
 def main():
@@ -18,21 +18,20 @@ def main():
 
     if request == "heatmap":
         hm = Heatmap(file)
-        pprint.pprint(hm)
+        op(hm.heatmap)
         return hm
 
 
     elif request == "num_table":
         nt = Numerical_Table(file)
-        pprint.pprint(nt)
         return nt
 
 
     elif request == "cat_table":
         ct = Categorical_Table(file)
-        pprint.pprint(ct)
         return ct
 
 
 if __name__ == "__main__":
     main()
+    

@@ -67,8 +67,8 @@ class Heatmap:
 
                 cell = Cell(x, y, cache=self.caches)
                 self.heatmap[i][j] = cell
-                cell.flip_cell()
-                self.heatmap[j][i] = cell
+                flipped_cell = cell.flip_cell()
+                self.heatmap[j][i] = flipped_cell
 
         return self.heatmap
 
