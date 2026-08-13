@@ -1,4 +1,55 @@
-# Statistics-API
+
+# Introduction
+
+This codebase is a project I did to try to accomplish the following things:
+
+1. Learn some new statistics formulas / coefficients / metrics.
+2. Get a feel to using Pandas and Numpy.
+3. Making a full, working, and clean API.
+
+Now, what does the project do, you may ask. It's quite simple. Given some `.csv` file with columns of data, it returns **three** different things:
+
+1. A **Heatmap** showing correlation coefficients. between all pairs of data. However, the correlation coefficients in the Heatmap are not just Pearson's Correlation Coefficient that everyone learns, but rather a variety of different metrics. After all, there will often be *categorical* and *numerical* data that have to be compared, and the *categorical* data may be *binary*, *nominal*, *ordinal*, etc. Lots of choices.
+
+2. A **Numerical Data Table** that shows important metrics for *all numerical variables/columns*. These metrics include (but are not limited to) *mean*, *min*, *max*, *range*, *25th percentile*, *75th percentile*, *skewness*, and hopefully some more.
+
+3. A **Categorical Data Table* that shows important metrics/descriptions for *all categorical variables/columns* (except any columns for labelling...). These descriptions include (but are not limited to) *type of categorical data*, *number of categories*, *some other stuff...*, yeah. There will likely be some fancy metrics that go here.
+
+4. Eventually, I wish to add a way to directly compare two variables/columns to determine *all comparisons/metrics*.
+
+MAYBE, if I have time, I'll add a way to directly compare two variables to get more comparisons between them.
+
+## The API
+
+Here you will learn how to use the codebase. First, make sure you have a `.csv` file ready. 
+
+Once I learn how it works, I'll document it here.
+
+## Local Setup
+
+1. Clone the API
+`git clone https://github.com/Matthew07/Statistics-API` and `cd Statistics-API`
+2. Make virtual environment:
+`python -m venv venv` or `uv venv`
+3. Install dependencies
+`pip install -r requirements.txt` or `uv pip install -r requirements.txt`
+4. Start server
+`uvicorn main:app`
+
+
+# The Heatmap
+
+
+# The Numerical Table
+
+
+# The Categorical Table
+
+
+
+*** 
+
+## Statistics-API
 
 BIG IDEA: i should change this all to Rust. it's for the learning. and cause it takes FOREVER to do a 20 x 20 map
 
