@@ -19,11 +19,8 @@ Now, what does the project do, you may ask. It's quite simple. Given some `.csv`
 
 MAYBE, if I have time, I'll add a way to directly compare two variables to get more comparisons between them.
 
-## The API
-
-Here you will learn how to use the codebase. First, make sure you have a `.csv` file ready. 
-
-Once I learn how it works, I'll document it here.
+***
+# Usage
 
 ## Local Setup
 
@@ -37,18 +34,18 @@ Once I learn how it works, I'll document it here.
 `uvicorn main:app`
 
 
-# The Heatmap
+## The Heatmap
 
 
-# The Numerical Table
+## The Numerical Table
 
 
-# The Categorical Table
+## The Categorical Table
 
 
-
+***
+***
 *** 
-
 ## Statistics-API
 
 BIG IDEA: i should change this all to Rust. it's for the learning. and cause it takes FOREVER to do a 20 x 20 map

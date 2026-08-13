@@ -17,7 +17,7 @@ class Heatmap:
         self.corr_matrix = [[0.0 for _ in range(self.n)] for _ in range(self.n)]
         self.columns = self.df.columns
         self.types = {}
-        self.caches = {}
+        self.column_cache = {}
 
         # Classifying
         self.classify_columns()
@@ -51,13 +51,10 @@ class Heatmap:
 
     # Create caches for each variable/colums
     def create_caches(self):
-        for i in range(self.n):
-            x = self.df[self.columns[i]]
-            name = x.name
-            self.caches[name] = ColumnCache(x)
+        for column in self.columns:
+            self.column_cache[column] = ColumnCache(self.df[column])
 
     
-
     # Creates the main heatmap, which is a 2D m by n array of Cell objects
     def create_heatmap(self) -> np.ndarray[Tuple[int, int], np.dtype[np.float64]]:
         for i in range(self.n):
@@ -65,13 +62,11 @@ class Heatmap:
                 x = self.df[self.columns[i]]
                 y = self.df[self.columns[j]]
 
-                cell = Cell(x, y, cache=self.caches)
+                cell = Cell(x, y, column_cache=self.column_cache)
                 self.heatmap[i][j] = cell
-                flipped_cell = cell.flip_cell()
-                self.heatmap[j][i] = flipped_cell
+                self.heatmap[j][i] = cell.flip_cell()
 
         return self.heatmap
-
 
 
     # Creates a Correlation Matrix, which is a 2D m by n array of floats

@@ -4,16 +4,15 @@ from stats.comps import *
 from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_dtype, is_object_dtype)
 
 class Cell:
-    def __init__(self, x, y, default=None, cache={}):
+    def __init__(self, x, y, default=None, column_cache=None):
         self.x = x
         self.y = y
         self.comps = {}
         self.default = default
         self.type = None
-        self.cache = cache
 
         self.classify_data()
-        self.create_comps()
+        self.create_comps(column_cache)
 
     def classify_variable(self, s) -> str:
         # implement heuristic stuff later cause is not good rn
@@ -46,16 +45,25 @@ class Cell:
         if self.default == None: self.default = default
         return self.type
 
-    def create_comps(self):
+    def create_comps(self, column_cache):
         if self.type == "num_v_num":
-            self.comps = num_v_num(self.x, self.y, cache=self.cache)
+            self.comps = num_v_num(self.x, self.y, cache=column_cache)
         elif self.type == "num_v_cat":
-            self.comps = num_v_cat(self.x, self.y, cache=self.cache)
+            self.comps = num_v_cat(self.x, self.y, cache=column_cache)
         elif self.type == "cat_v_num":
-            self.comps = num_v_cat(self.y, self.x, cache=self.cache)
+            self.comps = num_v_cat(self.y, self.x, cache=column_cache)
         elif self.type == "cat_v_cat":
-            self.comps = cat_v_cat(self.x, self.y, cache=self.cache)
+            self.comps = cat_v_cat(self.x, self.y, cache=column_cache)
         return self.comps
 
     def flip_cell(self):
-        return Cell(x=self.y, y=self.x, default=self.default, cache=self.cache)
+        temp   = self.x
+        self.x = self.y
+        self.y = temp
+
+        if self.type == "num_v_cat":
+            self.type = "cat_v_num"
+        elif self.type == "cat_v_num":
+            self.type = "num_v_cat"
+
+        return self
