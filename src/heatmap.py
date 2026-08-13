@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
-from stats.comps import *
-from cell import Cell
+from src.stats.comps import *
+from src.cell import Cell
+from src.stats.caching import ColumnCache
+from src.stats.utils import classify_column
 from typing import Tuple
-from stats.caching import ColumnCache
 from pandas.api.types import (
     is_numeric_dtype, is_bool_dtype, is_categorical_dtype, is_object_dtype, is_string_dtype
 )
@@ -41,10 +42,7 @@ class Heatmap:
         # Key to Value is "variable : type"
         res = {}
         for var, s in self.df.items():
-            if is_numeric_dtype(s):
-                res[var] = "num"
-            elif is_categorical_dtype(s) or is_object_dtype(s) or is_bool_dtype(s) or is_string_dtype(s):
-                res[var] = "cat"
+            res[var] = classify_column(s)
         self.types = res
         return self.types
         
