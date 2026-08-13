@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from stats import *
+from stats.comps import *
 from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_dtype, is_object_dtype)
 
 class Cell:
@@ -68,7 +68,6 @@ class Cell:
         self.y = temp
 
         if self.type == "num_v_cat":
-            self.type == "cat_v_num"
+            self.type = "cat_v_num"
         elif self.type == "cat_v_num":
-            self.type == "num_v_cat"
-
+            self.type = "num_v_cat"
