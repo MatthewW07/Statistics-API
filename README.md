@@ -39,7 +39,7 @@ MAYBE, if I have time, I'll add a way to directly compare two variables to get m
 
 ## The Numerical Table
 
-In the Numerical Table, the following statistics will be computed for every numerical variable/column:
+In the **Numerical Table**, the following statistics will be computed for every *numerical variable/column*:
 
 1. Count
 2. Missing Count
@@ -73,6 +73,25 @@ In the Numerical Table, the following statistics will be computed for every nume
 
 
 ## The Categorical Table
+
+In the **Categorical Table**, the following statistics will be computed for every *numerical variable/column*:
+
+1. Count
+2. Missing Count
+3. Missing Percent
+4. Categories
+5. Mode
+6. Mode Count
+7. Mode Percent
+8. Second Mode
+9. Second Mode Count
+10. Second Mode Percent
+11. Least Frequent Category
+12. Least Frequent Count
+13. Least Frequent Percent
+14. Entropy
+15. Normalized Entropy
+16. Concentration Ratio
 
 
 ***

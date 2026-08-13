@@ -11,7 +11,7 @@ def main():
 
     # ========== TESTING ========== #
     #
-    request = "num_table"
+    request = "cat_table"
     file = "Student_Productivity_Dataset.csv"
     #
     # ========== TESTING ========== #
@@ -30,6 +30,7 @@ def main():
 
     elif request == "cat_table":
         cat_table = Categorical_Table(file)
+        op(cat_table.stats)
         return cat_table
 
 

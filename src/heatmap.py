@@ -5,9 +5,6 @@ from src.cell import Cell
 from src.stats.caching import ColumnCache
 from src.stats.utils import classify_column
 from typing import Tuple
-from pandas.api.types import (
-    is_numeric_dtype, is_bool_dtype, is_categorical_dtype, is_object_dtype, is_string_dtype
-)
 
 class Heatmap:
     def __init__(self, file_path):
