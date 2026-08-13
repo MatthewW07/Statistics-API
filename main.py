@@ -11,7 +11,7 @@ def main():
 
     # ========== TESTING ========== #
     #
-    request = "heatmap"
+    request = "num_table"
     file = "Student_Productivity_Dataset.csv"
     #
     # ========== TESTING ========== #
@@ -24,6 +24,7 @@ def main():
 
     elif request == "num_table":
         num_table = Numerical_Table(file)
+        op(num_table.stats)
         return num_table
 
 

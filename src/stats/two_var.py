@@ -1,3 +1,4 @@
+""" Collection of all two-variable correlation functions """
 
 import math
 import numpy as np

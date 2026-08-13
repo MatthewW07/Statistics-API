@@ -1,10 +1,8 @@
+""" The functions to compare two variables """
+
 import pandas as pd
 import numpy as np
 from src.stats.two_var import *
-
-
-""" The functions to compare two variables """
-
 
 # Methods: Pearson, Spearman, Distance, Kendall, Determination, Nash-Stucliffe
 def num_v_num(x, y, cache=None) -> dict:

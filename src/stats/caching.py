@@ -1,6 +1,7 @@
+""" Basic Caches for each column in a DataFrame """
+
 import numpy as np
 import pandas as pd
-
 
 class ColumnCache:
     """Column-level values that remain valid when a comparison uses every row.

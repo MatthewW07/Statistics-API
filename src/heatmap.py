@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from src.stats.comps import *
+from src.stats.comparisons import *
 from src.cell import Cell
 from src.stats.caching import ColumnCache
 from src.stats.utils import classify_column

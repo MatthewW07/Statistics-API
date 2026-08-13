@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from src.stats.comps import *
+from src.stats.comparisons import *
 from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_dtype, is_object_dtype)
 
 class Cell:
