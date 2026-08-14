@@ -74,27 +74,35 @@ async def get_heatmap(file: str = Query(..., description="Path to the CSV file t
     # Cells contain pandas Series and are intentionally kept internal.  
     # The correlation matrix is the portable API representation of the heatmap.
     return response({
-        "columns": heatmap.columns.tolist(),
-        "column_types": heatmap.types,
-        "metric": {
-            "num_v_num": "pearson",
-            "num_v_cat": "eta",
-            "cat_v_cat": "cramer",
+        "variables": list(zip(heatmap.variables.tolist(), heatmap.types.values())),
+        "default_metrics": {
+            "num_v_num": heatmap.defaults["num_v_num"],
+            "num_v_cat": heatmap.defaults["num_v_cat"],
+            "cat_v_cat": heatmap.defaults["cat_v_cat"]
         },
-        "heatmap": heatmap.corr_matrix,
+        "heatmap": heatmap.heatmap,
+        "correlation_matrix": heatmap.corr_matrix
     })
 
 
 @app.get("/num_table")
 async def get_num_table(file: str = Query(..., description="Path to the CSV file to analyze")):
     table = Numerical_Table(csv_path(file))
-    return response({"columns": table.columns, "statistics": table.stats})
+    return response({
+        "columns": table.columns, 
+        "variables": table.variables,
+        "statistics": table.stats
+    })
 
 
 @app.get("/cat_table")
 async def get_cat_table(file: str = Query(..., description="Path to the CSV file to analyze")):
     table = Categorical_Table(csv_path(file))
-    return response({"columns": table.columns, "statistics": table.stats})
+    return response({
+        "columns": table.columns, 
+        "variables": table.variables,
+        "statistics": table.stats
+    })
 
 
 if __name__ == "__main__":

@@ -35,7 +35,7 @@ def mixed_pair(x, y):
     return numeric[mask], df.iloc[:, 1][mask]
 
 
-def classify_column(s) -> str:
+def classify_variable(s) -> str:
     res = ""
     if is_numeric_dtype(s):
         res = "num"

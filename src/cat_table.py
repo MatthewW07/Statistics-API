@@ -1,51 +1,53 @@
 
 import pandas as pd
 import numpy as np
-from src.stats.utils import classify_column
+from src.stats.utils import classify_variable
+from src.consts import categorical_table_columns
 
 class Categorical_Table:
     def __init__(self, file):
         self.df = pd.read_csv(file)
-        self.columns = []
+        self.columns = categorical_table_columns
+        self.variables = []
         self.stats = {}
         self.n = 0
 
         # Get the categorical variables/columns
-        self.get_categoric_columns()
+        self.get_categoric_variables()
 
         # Fill in the table
         self.create_table()
 
 
-    def get_categoric_columns(self):
-        categoric_columns = []
+    def get_categoric_variables(self):
+        categoric_variables = []
         for column in self.df.columns:
-            if classify_column(self.df[column]) != "num":
-                categoric_columns.append(column)
-        self.columns = categoric_columns
-        self.n = len(categoric_columns)
+            if classify_variable(self.df[column]) != "num":
+                categoric_variables.append(column)
+        self.variables = categoric_variables
+        self.n = len(categoric_variables)
 
 
     def create_table(self):
-        for column in self.columns:
-            self.get_stats(column)
+        for v in self.variables:
+            self.get_stats(v)
 
 
-    def get_stats(self, col):
-        self.stats[col] = {}
-        self.stats[col]["count"] = self.df[col].count()
-        self.stats[col]["missing_count"] = self.df[col].isnull().sum()
-        self.stats[col]["missing_percent"] = (self.df[col].isnull().sum() / len(self.df[col])) * 100
-        self.stats[col]["categories"] = self.df[col].value_counts().to_dict()
-        self.stats[col]["mode"] = self.df[col].mode()[0] if not self.df[col].mode().empty else np.nan
-        self.stats[col]["mode_count"] = self.df[col].value_counts().iloc[0] if not self.df[col].value_counts().empty else np.nan
-        self.stats[col]["mode_percent"] = (self.df[col].value_counts().iloc[0] / len(self.df[col])) * 100 if not self.df[col].value_counts().empty else np.nan
-        self.stats[col]["second_mode"] = self.df[col].value_counts().index[1] if len(self.df[col].value_counts()) > 1 else np.nan
-        self.stats[col]["second_mode_count"] = self.df[col].value_counts().iloc[1] if len(self.df[col].value_counts()) > 1 else np.nan
-        self.stats[col]["second_mode_percent"] = (self.stats[col]["second_mode_count"] / len(self.df[col])) * 100 if len(self.df[col].value_counts()) > 1 else np.nan
-        self.stats[col]["least_frequent_category"] = self.df[col].value_counts().index[-1] if len(self.df[col].value_counts()) > 0 else np.nan
-        self.stats[col]["least_frequent_count"] = self.df[col].value_counts().iloc[-1] if len(self.df[col].value_counts()) > 0 else np.nan
-        self.stats[col]["least_frequent_percent"] = (self.stats[col]["least_frequent_count"] / len(self.df[col])) * 100 if len(self.df[col].value_counts()) > 0 else np.nan
-        self.stats[col]["entropy"] = -(self.df[col].value_counts(normalize=True) * np.log2(self.df[col].value_counts(normalize=True))).sum()
-        self.stats[col]["normalized_entropy"] = self.stats[col]["entropy"] / np.log2(len(self.df[col].value_counts())) if len(self.df[col].value_counts()) > 1 else np.nan
-        self.stats[col]["concentrated_ratio"] = self.stats[col]["mode_count"] / len(self.df[col]) if len(self.df[col]) > 0 else np.nan
+    def get_stats(self, v):
+        self.stats[v] = {}
+        self.stats[v]["cnt"] = self.df[v].count()
+        self.stats[v]["missing_cnt"] = self.df[v].isnull().sum()
+        self.stats[v]["missing_pct"] = (self.df[v].isnull().sum() / len(self.df[v])) * 100
+        self.stats[v]["categories"] = self.df[v].value_counts().to_dict()
+        self.stats[v]["mode"] = self.df[v].mode()[0] if not self.df[v].mode().empty else np.nan
+        self.stats[v]["mode_cnt"] = self.df[v].value_counts().iloc[0] if not self.df[v].value_counts().empty else np.nan
+        self.stats[v]["mode_pct"] = (self.df[v].value_counts().iloc[0] / len(self.df[v])) * 100 if not self.df[v].value_counts().empty else np.nan
+        self.stats[v]["second_mode"] = self.df[v].value_counts().index[1] if len(self.df[v].value_counts()) > 1 else np.nan
+        self.stats[v]["second_mode_cnt"] = self.df[v].value_counts().iloc[1] if len(self.df[v].value_counts()) > 1 else np.nan
+        self.stats[v]["second_mode_pct"] = (self.stats[v]["second_mode_cnt"] / len(self.df[v])) * 100 if len(self.df[v].value_counts()) > 1 else np.nan
+        self.stats[v]["least_frequent_category"] = self.df[v].value_counts().index[-1] if len(self.df[v].value_counts()) > 0 else np.nan
+        self.stats[v]["least_frequent_cnt"] = self.df[v].value_counts().iloc[-1] if len(self.df[v].value_counts()) > 0 else np.nan
+        self.stats[v]["least_frequent_pct"] = (self.stats[v]["least_frequent_cnt"] / len(self.df[v])) * 100 if len(self.df[v].value_counts()) > 0 else np.nan
+        self.stats[v]["entropy"] = -(self.df[v].value_counts(normalize=True) * np.log2(self.df[v].value_counts(normalize=True))).sum()
+        self.stats[v]["normalized_entropy"] = self.stats[v]["entropy"] / np.log2(len(self.df[v].value_counts())) if len(self.df[v].value_counts()) > 1 else np.nan
+        self.stats[v]["concentration_ratio"] = self.stats[v]["mode_cnt"] / len(self.df[v]) if len(self.df[v]) > 0 else np.nan

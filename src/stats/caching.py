@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 
-class ColumnCache:
+class VariableCache:
     """Column-level values that remain valid when a comparison uses every row.
 
     Pairwise statistics must not reuse these values after either input has had

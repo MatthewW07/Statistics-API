@@ -4,11 +4,10 @@ from src.stats.comparisons import *
 from pandas.api.types import (is_numeric_dtype, is_categorical_dtype, is_bool_dtype, is_string_dtype, is_object_dtype)
 
 class Cell:
-    def __init__(self, x, y, default=None, column_cache=None):
+    def __init__(self, x, y, column_cache=None):
         self.x = x
         self.y = y
         self.comps = {}
-        self.default = default
         self.type = None
 
         self.classify_data()
@@ -28,21 +27,15 @@ class Cell:
         y_type = self.classify_variable(self.y)
 
         comp_type = None
-        default = None
         if x_type == "num" and y_type == "num":
             comp_type = "num_v_num"
-            default = "pearson"
         elif x_type == "num" and y_type == "cat":
             comp_type = "num_v_cat"
-            default = "eta"
         elif x_type == "cat" and y_type == "num":
             comp_type = "cat_v_num"
-            default = "eta"
         elif x_type == "cat" and y_type == "cat":
             comp_type = "cat_v_cat"
-            default = "cramer"
         self.type = comp_type
-        if self.default == None: self.default = default
         return self.type
 
     def create_comps(self, column_cache):
