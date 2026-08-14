@@ -3,10 +3,11 @@
 import math
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 import numpy as np
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, UploadFile, File
 from fastapi.responses import JSONResponse
 
 from src.cat_table import Categorical_Table
@@ -20,6 +21,8 @@ app = FastAPI(
     version="1.0.0",
 )
 
+UPLOAD_FOLDER = Path(__file__).resolve().parent / "uploads"
+MAX_UPLOAD_BYTES = 50 * 2048 * 2048
 
 def to_jsonable(value: Any) -> Any:
     """Convert pandas and NumPy values into valid JSON-compatible values."""
@@ -64,8 +67,45 @@ async def root():
     return {
         "status": "API is running",
         "docs": "/docs",
-        "endpoints": ["/heatmap", "/num_table", "/cat_table"],
+        "endpoints": ["/upload", "/heatmap", "/num_table", "/cat_table"],
     }
+
+
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    """Store and validate an uploaded CSV, returning a reference for analysis."""
+    if not file.filename or Path(file.filename).suffix.lower() != ".csv":
+        raise HTTPException(status_code=422, detail="Upload a file with a .csv extension")
+
+    content = await file.read(MAX_UPLOAD_BYTES + 1)
+    await file.close()
+    if not content:
+        raise HTTPException(status_code=422, detail="The uploaded CSV is empty")
+    if len(content) > MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"CSV exceeds the {MAX_UPLOAD_BYTES // (1024 * 1024)} MB upload limit",
+        )
+
+    UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
+    stored_path = UPLOAD_FOLDER / f"{uuid4().hex}.csv"
+    stored_path.write_bytes(content)
+
+    try:
+        # Parse a small sample now so invalid files fail at upload time rather
+        # than later when a statistics endpoint is called.
+        sample = pd.read_csv(stored_path, nrows=5)
+    except (pd.errors.ParserError, pd.errors.EmptyDataError, UnicodeDecodeError) as exc:
+        stored_path.unlink(missing_ok=True)
+        raise HTTPException(status_code=422, detail=f"Invalid CSV: {exc}") from exc
+
+    return response({
+        "file": str(stored_path),
+        "original_filename": file.filename,
+        "columns": sample.columns.tolist(),
+        "message": "Upload complete. Pass the returned file value to an analysis endpoint.",
+    })
+
 
 
 @app.get("/heatmap")

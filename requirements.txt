@@ -5,3 +5,4 @@ scipy
 objprint
 fastapi
 uvicorn
+python-multipart

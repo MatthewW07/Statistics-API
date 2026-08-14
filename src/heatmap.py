@@ -19,7 +19,7 @@ class Heatmap:
         self.column_cache = {}
 
         # Classifying
-        self.classify_columns()
+        self.classify_variables()
 
         # Create Caches
         self.create_caches()

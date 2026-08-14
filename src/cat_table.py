@@ -2,12 +2,12 @@
 import pandas as pd
 import numpy as np
 from src.stats.utils import classify_variable
-from src.consts import categorical_table_columns
+from src.consts import categoric_table_columns
 
 class Categorical_Table:
     def __init__(self, file):
         self.df = pd.read_csv(file)
-        self.columns = categorical_table_columns
+        self.columns = categoric_table_columns
         self.variables = []
         self.stats = {}
         self.n = 0
