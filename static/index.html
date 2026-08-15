@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Statistics Explorer</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">Statistics <span>Explorer</span></a>
+    <a href="/docs" target="_blank" rel="noreferrer">API docs ↗</a>
+  </header>
+
+  <main>
+    <section id="upload-view" class="hero">
+      <p class="eyebrow">CSV ANALYSIS</p>
+      <h1>See the shape of<br><em>your data.</em></h1>
+      <p class="lede">Upload a CSV to explore one-variable summaries and relationships between every pair of columns.</p>
+      <form id="upload-form" class="upload-card">
+        <input id="csv-file" type="file" accept=".csv,text/csv" hidden>
+        <label for="csv-file" id="drop-zone">
+          <strong>Choose a CSV</strong>
+          <span>or drag and drop it here · 50 MB maximum</span>
+        </label>
+        <button type="submit" id="analyze-button" disabled>Analyze dataset <span>→</span></button>
+      </form>
+      <p id="upload-error" class="error" role="alert"></p>
+    </section>
+
+    <section id="analysis-view" hidden>
+      <div class="dataset-bar">
+        <div><p class="eyebrow">CURRENT DATASET</p><h2 id="dataset-name">—</h2></div>
+        <button id="new-file" class="quiet-button">Upload another file</button>
+      </div>
+
+      <nav class="tabs" aria-label="Analysis views">
+        <button class="tab active" data-view="heatmap">Heatmap</button>
+        <button class="tab" data-view="numerical">Numerical table</button>
+        <button class="tab" data-view="categorical">Categorical table</button>
+      </nav>
+
+      <section id="heatmap" class="panel active">
+        <div class="panel-heading">
+          <div><p class="eyebrow">RELATIONSHIPS</p><h2>Correlation heatmap</h2><p>Click a cell to inspect every compatible association metric.</p></div>
+          <div class="legend"><span>Negative</span><i></i><span>Positive</span></div>
+        </div>
+        <div class="heatmap-layout">
+          <div class="heatmap-scroll"><div id="heatmap-grid" aria-label="Correlation heatmap"></div></div>
+          <aside id="pair-detail" class="pair-detail"><p class="muted">Select a heatmap cell to inspect that variable pair.</p></aside>
+        </div>
+      </section>
+
+      <section id="numerical" class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">ONE VARIABLE</p><h2>Numerical summary</h2><p>Click a column heading to sort.</p></div><input class="table-search" data-table="numerical-table" placeholder="Filter variables"></div>
+        <div class="table-wrap"><table id="numerical-table"></table></div>
+      </section>
+
+      <section id="categorical" class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">ONE VARIABLE</p><h2>Categorical summary</h2><p>Click a column heading to sort.</p></div><input class="table-search" data-table="categorical-table" placeholder="Filter variables"></div>
+        <div class="table-wrap"><table id="categorical-table"></table></div>
+      </section>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

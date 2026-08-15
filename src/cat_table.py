@@ -45,7 +45,7 @@ class Categorical_Table:
         self.stats[v]["second_mode"] = self.df[v].value_counts().index[1] if len(self.df[v].value_counts()) > 1 else np.nan
         self.stats[v]["second_mode_cnt"] = self.df[v].value_counts().iloc[1] if len(self.df[v].value_counts()) > 1 else np.nan
         self.stats[v]["second_mode_pct"] = (self.stats[v]["second_mode_cnt"] / len(self.df[v])) * 100 if len(self.df[v].value_counts()) > 1 else np.nan
-        self.stats[v]["least_frequent_category"] = self.df[v].value_counts().index[-1] if len(self.df[v].value_counts()) > 0 else np.nan
+        self.stats[v]["least_frequent"] = self.df[v].value_counts().index[-1] if len(self.df[v].value_counts()) > 0 else np.nan
         self.stats[v]["least_frequent_cnt"] = self.df[v].value_counts().iloc[-1] if len(self.df[v].value_counts()) > 0 else np.nan
         self.stats[v]["least_frequent_pct"] = (self.stats[v]["least_frequent_cnt"] / len(self.df[v])) * 100 if len(self.df[v].value_counts()) > 0 else np.nan
         self.stats[v]["entropy"] = -(self.df[v].value_counts(normalize=True) * np.log2(self.df[v].value_counts(normalize=True))).sum()

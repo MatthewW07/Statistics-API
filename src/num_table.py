@@ -39,9 +39,9 @@ class Numerical_Table:
         self.stats[v]["missing_cnt"] = self.df[v].isnull().sum()
         self.stats[v]["missing_pct"] = (self.df[v].isnull().sum() / len(self.df[v])) * 100
         self.stats[v]["outlier_cnt"] = ((self.df[v] < (self.df[v].quantile(0.25) - 1.5 * (self.df[v].quantile(0.75) - self.df[v].quantile(0.25)))) | (self.df[v] > (self.df[v].quantile(0.75) + 1.5 * (self.df[v].quantile(0.75) - self.df[v].quantile(0.25))))).sum()
-        self.stats[v]["zeros_count"] = (self.df[v] == 0).sum()
-        self.stats[v]["negative_count"] = (self.df[v] < 0).sum()
-        self.stats[v]["unique_count"] = self.df[v].nunique()
+        self.stats[v]["zeros_cnt"] = (self.df[v] == 0).sum()
+        self.stats[v]["negative_cnt"] = (self.df[v] < 0).sum()
+        self.stats[v]["unique_cnt"] = self.df[v].nunique()
         self.stats[v]["mean"] = self.df[v].mean()
         self.stats[v]["median"] = self.df[v].median()
         self.stats[v]["mode"] = self.df[v].mode()[0] if not self.df[v].mode().empty else np.nan

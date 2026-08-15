@@ -8,7 +8,8 @@ from uuid import uuid4
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query, UploadFile, File
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.cat_table import Categorical_Table
 from src.heatmap import Heatmap
@@ -22,7 +23,10 @@ app = FastAPI(
 )
 
 UPLOAD_FOLDER = Path(__file__).resolve().parent / "uploads"
-MAX_UPLOAD_BYTES = 50 * 2048 * 2048
+STATIC_FOLDER = Path(__file__).resolve().parent / "static"
+MAX_UPLOAD_BYTES = 50 * 1024 * 1024
+
+app.mount("/static", StaticFiles(directory=STATIC_FOLDER), name="static")
 
 def to_jsonable(value: Any) -> Any:
     """Convert pandas and NumPy values into valid JSON-compatible values."""
@@ -64,11 +68,7 @@ def response(content: dict[str, Any]) -> JSONResponse:
 
 @app.get("/")
 async def root():
-    return {
-        "status": "API is running",
-        "docs": "/docs",
-        "endpoints": ["/upload", "/heatmap", "/num_table", "/cat_table"],
-    }
+    return FileResponse(STATIC_FOLDER / "index.html")
 
 
 @app.post("/upload")
@@ -111,17 +111,26 @@ async def upload_file(file: UploadFile = File(...)):
 @app.get("/heatmap")
 async def get_heatmap(file: str = Query(..., description="Path to the CSV file to analyze")):
     heatmap = Heatmap(csv_path(file))
-    # Cells contain pandas Series and are intentionally kept internal.  
-    # The correlation matrix is the portable API representation of the heatmap.
+    variables = heatmap.variables.tolist()
+    pair_details = {}
+    for i, x_name in enumerate(variables):
+        for j in range(i, len(variables)):
+            y_name = variables[j]
+            x_type, y_type = heatmap.types[x_name], heatmap.types[y_name]
+            relationship = f"{x_type}_v_{y_type}"
+            cell = heatmap.heatmap[i][j]
+            pair_details[f"{x_name}|{y_name}"] = {
+                "x": x_name,
+                "y": y_name,
+                "type": relationship,
+                "metrics": cell.comps,
+            }
     return response({
-        "variables": list(zip(heatmap.variables.tolist(), heatmap.types.values())),
-        "default_metrics": {
-            "num_v_num": heatmap.defaults["num_v_num"],
-            "num_v_cat": heatmap.defaults["num_v_cat"],
-            "cat_v_cat": heatmap.defaults["cat_v_cat"]
-        },
-        "heatmap": heatmap.heatmap,
-        "correlation_matrix": heatmap.corr_matrix
+        "variables": variables,
+        "column_types": heatmap.types,
+        "default_metrics": heatmap.defaults,
+        "correlation_matrix": heatmap.corr_matrix,
+        "pair_details": pair_details,
     })
 
 
