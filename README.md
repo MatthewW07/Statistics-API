@@ -26,7 +26,7 @@ MAYBE, if I have time, I'll add a way to directly compare two variables to get m
 ***
 # Usage
 
-## Local Setup
+### Local Setup
 
 1. Clone the API
 `git clone https://github.com/Matthew07/Statistics-API` and `cd Statistics-API`
@@ -37,7 +37,7 @@ MAYBE, if I have time, I'll add a way to directly compare two variables to get m
 4. Start server
 `uvicorn main:app`
 
-## The Heatmap
+### The Heatmap
 
 This is the main tool of the repository. It compute statistics for every possible pair of two variables from a given dataset. Here is the current list of statistics and when they are computed:
 
@@ -59,7 +59,7 @@ This is the main tool of the repository. It compute statistics for every possibl
     2. Biserial
     3. Point-Biserial Correlation Coefficient
 
-## The Numerical Table
+### The Numerical Table
 
 In the **Numerical Table**, the following statistics will be computed for every *numerical variable/column*:
 
@@ -93,7 +93,7 @@ In the **Numerical Table**, the following statistics will be computed for every 
 28. Mean 95% Confidence Interval Lower Bound (mean_ci_95_low)
 29. Mean 95% Confidence Interval Upper Bound (mean_ci_95_high)
 
-## The Categorical Table
+### The Categorical Table
 
 In the **Categorical Table**, the following statistics will be computed for every *numerical variable/column*:
 
@@ -114,7 +114,7 @@ In the **Categorical Table**, the following statistics will be computed for ever
 15. Normalized Entropy
 16. Concentration Ratio
 
-## Visualization
+### Visualization
 
 This project also includes an actual webpage to use the tools outside the terminal. No graphs are included, but you can see the heatmap the tables and look through some values.
 
@@ -123,7 +123,7 @@ This project also includes an actual webpage to use the tools outside the termin
 
 Here are some ways this project could be improved
 
-## More Statistics
+### More Statistics
 
 There are way more statistics / metrics / indices / whatever out there that could be included here. Here's a small list of possible things to look at:
 
@@ -138,7 +138,7 @@ There are way more statistics / metrics / indices / whatever out there that coul
 9. Jaccard Index
 10. Fowlkes–Mallows Index
 
-## More Depth for Categorical Data
+### More Depth for Categorical Data
 
 There are many types of categorical data. Certain statistics thrive off of specific categorical types but not others. For example, choosing whether or not to use Cramer's V *Biased* or *Unbiased* depends on whether the categorical data is *Binary* or *Multiclass*. Here's a small tree diagram that could be expanded upon:
 
@@ -152,7 +152,7 @@ Categorical
 
 Ideally, the *classify_variable()* function (found at `src/stats/utils.py`) could be improved to specify which type of `cat` (categorical) data a variable is, and in turn the default values (in the *Heatmap* or choosing between *biased/unbiased*) would be changed.
 
-## Further Visualizations
+### Further Visualizations
 
 Graphs were not included in this project because I wanted to keep it light. However, if needed, perhaps certain plots could be included. Maybe in the *Heatmap*, if a cell is selected, the frontend would show a graphs option. There are more ways to do this. Here's a list of possible graphs to include:
 
